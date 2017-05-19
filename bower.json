@@ -1,6 +1,6 @@
 {
 	"name": "l2t-paper-rating",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A polymer element to display &#34;star&#34; ratings in a paper style",
 	"main": "l2t-paper-rating.html",
 	"dependencies": {
