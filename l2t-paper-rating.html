@@ -1,0 +1,181 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<!--
+A polymer element to display &#34;star&#34; ratings in a paper style
+Example:
+    <l2t-paper-rating></l2t-paper-rating>
+Use `rating` and `total` to specify current rating and maximum rating
+respectively.  Defaults are 1 and 5.
+Example:
+    <l2t-paper-rating rating="7" total="10"></l2t-paper-rating>
+### Styling
+The following custom properties and mixins are available for styling:
+Custom property | Description | Default
+----------------|-------------|----------
+`--rating-icon-color` | The color of the icons | `#455a64`
+`--rating-icon-size` | The size of the icon (square) | `28px`
+`--rating-icon-padding` | The size of the padding between icons | `2px`
+`--rating-unselected-opacity` | The opacity of stars 'non-active' | `0.4`
+
+@element l2t-paper-rating
+@demo demo/index.html
+-->
+
+<dom-module id="l2t-paper-rating">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    .stars {
+      display: inline-flex;
+    }
+    .stars:hover .icon-container:not([readonly]),
+    .stars .icon-container.active,
+    .stars .icon-container:not([readonly]):hover,
+    .stars .icon-container:not([readonly]):focus {
+      opacity: 1;
+    }
+    .stars .icon-container {
+      color: var(--rating-icon-color, #455a64);
+      opacity: var(--rating-unselected-opacity, .4);
+      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      padding: var(--rating-icon-padding,2px);
+      will-change: transform;
+      transition: transform .2s cubic-bezier(.51, .92, .24, 1);
+    }
+    .stars .icon-container:not([readonly]):hover     {
+      transform: scale(1.2);
+    }
+    .stars .icon-container[readonly] {
+      cursor: default;
+    }
+    .stars .icon-container:not([readonly]):hover~.icon-container {
+      opacity: var(--rating-unselected-opacity, 0.4);
+    }
+    </style>
+    <div class="stars">
+      <template is="dom-repeat" items="[[_stars]]">
+        <paper-icon-button
+          noink$="[[readonly]]"
+          readonly$="[[readonly]]"
+          class$="[[_compareVals(rating,item)]]"
+          value$="[[item]]"
+          on-tap="_tapHandler"
+          icon="[[icon]]">
+        </paper-icon-button>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    class L2tPaperRating extends Polymer.Element {
+      static get is() { return 'l2t-paper-rating'; }
+      static get properties() {
+        return {
+          /**
+         * icon: the icon to use (iron-icons)
+         * @type {String}
+         */
+          icon: {
+            type: String,
+            value: "star"
+          },
+          /**
+         * rating: numbers of star selected (reflectToAttribute)
+         * @type {Number}
+         */
+          rating: {
+            type: Number,
+            value: 1,
+            reflectToAttribute: true,
+            notify: true,
+            observer: "_ratingUpdate"
+          },
+          /**
+         * readonly: can the rate be modified
+         * @type {Boolean}
+         */
+          readonly: {
+            type: Boolean,
+            value: false,
+          },
+          /**
+         * total: maximum number of stars selectable
+         * @type {Number}
+         */
+          total: {
+            type: Number,
+            value: 5,
+            reflectToAttribute: true
+          },
+          /**
+         * _stars: array hack for dom repeat from number
+         * @type {Array}
+         */
+          _stars: {
+            type: Array,
+            value: [],
+            computed: "_convertArray(total)"
+          }
+        };
+      }
+      constructor() {
+        super();
+      }
+      /**
+     * _compareVals: return active class for initial state
+     */
+      _compareVals(r,i) {
+        if (r >= i) {
+          return "active icon-container"
+        } else {
+          return "icon-container"
+        }
+      }
+      /**
+     * _convertArray: converts total to array for dom repeat from number
+     */
+      _convertArray(n) {
+        let array = [];
+        for(let i = 0; i < n; i++){
+          array.push(i+1);
+        }
+        return array;
+      }
+      /**
+     * _ratingUpdate: sets active classes on rating change
+     */
+      _ratingUpdate() {
+        let starSel = this.shadowRoot.querySelectorAll('iron-icon');
+        for(let i = 0; i < starSel.length; i++){
+          if(i <= (this.rating-1)) {
+            starSel[i].classList.add('active');
+          } else {
+            starSel[i].classList.remove('active');
+          }
+        }
+      }
+      /**
+     * _tapHandler: sets rating on tap
+     */
+      _tapHandler(e) {
+        if(this.readonly)
+        return
+
+        this.rating = e.path.find(function(e){
+          if(e.classList) {
+            return e.classList.contains("icon-container")
+          } else {
+            return false
+          }
+        }).getAttribute("value");
+      }
+    }
+
+    window.customElements.define(L2tPaperRating.is, L2tPaperRating);
+  </script>
+</dom-module>
