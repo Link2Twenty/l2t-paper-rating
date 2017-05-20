@@ -64,7 +64,7 @@ Custom property | Description | Default
     }
     </style>
     <div class="stars">
-      <template is="dom-repeat" items="[[_stars]]">
+      <template is="dom-repeat" items="[[_convertArray(total)]]">
         <paper-icon-button
           noink$="[[readonly]]"
           class$="[[_compareVals(rating,item)]]"
@@ -115,15 +115,6 @@ Custom property | Description | Default
             type: Number,
             value: 5,
             reflectToAttribute: true
-          },
-          /**
-          * _stars: array hack for dom repeat from number
-          * @type {Array}
-          */
-          _stars: {
-            type: Array,
-            value: [],
-            computed: "_convertArray(total)"
           }
         };
       }
