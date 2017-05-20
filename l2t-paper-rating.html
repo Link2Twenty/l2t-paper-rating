@@ -38,10 +38,10 @@ Custom property | Description | Default
     .stars {
       display: inline-flex
     }
-    .stars:hover .icon-container:not([noink]),
+    .stars:hover .icon-container:not([disabled]),
     .stars .icon-container.active,
-    .stars .icon-container:not([noink]):hover,
-    .stars .icon-container:not([noink]):focus {
+    .stars .icon-container:not([disabled]):hover,
+    .stars .icon-container:not([disabled]):focus {
       opacity: 1
     }
     .stars .icon-container {
@@ -53,20 +53,17 @@ Custom property | Description | Default
       will-change: transform;
       transition: transform .2s cubic-bezier(.51, .92, .24, 1)
     }
-    .stars .icon-container:not([noink]):hover     {
+    .stars .icon-container:not([disabled]):hover     {
       transform: scale(1.2)
     }
-    .stars .icon-container[noink] {
-      cursor: default
-    }
-    .stars .icon-container:not([noink]):hover~.icon-container {
+    .stars .icon-container:not([disabled]):hover~.icon-container {
       opacity: var(--rating-unselected-opacity, 0.4)
     }
     </style>
     <div class="stars">
       <template is="dom-repeat" items="[[_convertArray(total)]]">
         <paper-icon-button
-          noink$="[[readonly]]"
+          disabled$="[[readonly]]"
           class$="[[_compareVals(rating,item)]]"
           value$="[[item]]"
           on-tap="_tapHandler"
