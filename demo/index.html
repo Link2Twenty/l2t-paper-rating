@@ -17,10 +17,12 @@
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
         .color {
-          --rating-icon-color: gold;
+          --rating-icon-color: #ffb300;
+          --rating-ink-color: #ffb300;
         }
         .color[icon="favorite"] {
           --rating-icon-color: #e57373;
+          --rating-ink-color: #e57373;
         }
       </style>
     </custom-style>
@@ -59,13 +61,15 @@
         <l2t-paper-rating icon="favorite" total="7" rating="4" class="color">
         </l2t-paper-rating>
 
-        <custom-style>(this bit goes in the header)
+        <custom-style><!--This bit goes in the header-->
           <style is="custom-style">
             .color {
-              --rating-icon-color: gold;
+              --rating-icon-color: #ffb300;
+              --rating-ink-color: #ffb300;
             }
             .color[icon="favorite"] {
               --rating-icon-color: #e57373;
+              --rating-ink-color: #e57373;
             }
           </style>
         </custom-style>

@@ -24,6 +24,8 @@ bower install --save l2t-paper-rating
 ```
 -->
 ```html
+  <l2t-paper-rating></l2t-paper-rating>
+  <l2t-paper-rating rating="1" readonly></l2t-paper-rating>
   <l2t-paper-rating rating="7" total="10"></l2t-paper-rating>
 ```
 
@@ -33,9 +35,10 @@ The following custom properties are available for styling:
 
 | Custom property | Description | Default |
 |----------------|-------------|-------------|
-| --rating-icon-color | The color of the icons | #455a64 |
+| --rating-icon-color | The color of the icons | --primary-text-color |
 | --rating-icon-size | The size of the icon (square) | 28px |
 | --rating-icon-padding | The size of the padding between icons | 2px |
+| --rating-ink-color | The color of the ripple on icon tap | --primary-text-color |
 | --rating-unselected-opacity | The opacity of stars 'non-active' | 0.4 |
 
 ### Public
