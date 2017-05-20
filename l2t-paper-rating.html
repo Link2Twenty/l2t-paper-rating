@@ -38,10 +38,10 @@ Custom property | Description | Default
     .stars {
       display: inline-flex
     }
-    .stars:hover .icon-container:not([readonly]),
+    .stars:hover .icon-container:not([noink]),
     .stars .icon-container.active,
-    .stars .icon-container:not([readonly]):hover,
-    .stars .icon-container:not([readonly]):focus {
+    .stars .icon-container:not([noink]):hover,
+    .stars .icon-container:not([noink]):focus {
       opacity: 1
     }
     .stars .icon-container {
@@ -53,13 +53,13 @@ Custom property | Description | Default
       will-change: transform;
       transition: transform .2s cubic-bezier(.51, .92, .24, 1)
     }
-    .stars .icon-container:not([readonly]):hover     {
+    .stars .icon-container:not([noink]):hover     {
       transform: scale(1.2)
     }
-    .stars .icon-container[readonly] {
+    .stars .icon-container[noink] {
       cursor: default
     }
-    .stars .icon-container:not([readonly]):hover~.icon-container {
+    .stars .icon-container:not([noink]):hover~.icon-container {
       opacity: var(--rating-unselected-opacity, 0.4)
     }
     </style>
@@ -67,7 +67,6 @@ Custom property | Description | Default
       <template is="dom-repeat" items="[[_stars]]">
         <paper-icon-button
           noink$="[[readonly]]"
-          readonly$="[[readonly]]"
           class$="[[_compareVals(rating,item)]]"
           value$="[[item]]"
           on-tap="_tapHandler"
@@ -168,7 +167,6 @@ Custom property | Description | Default
         }
       }
     }
-
     window.customElements.define(L2tPaperRating.is, L2tPaperRating);
   </script>
 </dom-module>
