@@ -12,7 +12,6 @@ bower install --save l2t-paper-rating
 
 ## Examples
 
-Each slide must be within a paper-slide tag, but other than that you have complete control.
 <!---
 ```
 <custom-element-demo>
