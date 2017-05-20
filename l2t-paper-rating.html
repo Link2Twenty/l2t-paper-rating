@@ -62,12 +62,10 @@ Custom property | Description | Default
     </style>
     <div class="stars">
       <template is="dom-repeat" items="[[_convertArray(total)]]">
-        <paper-icon-button
+        <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
           disabled$="[[readonly]]"
           class$="[[_compareVals(rating,item)]]"
-          value$="[[item]]"
-          on-tap="_tapHandler"
-          icon="[[icon]]">
+          value$="[[item]]">
         </paper-icon-button>
       </template>
     </div>
@@ -88,7 +86,6 @@ Custom property | Description | Default
           },
           /**
           * rating: numbers of star selected (reflectToAttribute)
-          * @type {Number}
           */
           rating: {
             type: Number,
@@ -98,7 +95,6 @@ Custom property | Description | Default
           },
           /**
           * readonly: can the rate be modified
-          * @type {Boolean}
           */
           readonly: {
             type: Boolean,
@@ -106,7 +102,6 @@ Custom property | Description | Default
           },
           /**
           * total: maximum number of stars selectable
-          * @type {Number}
           */
           total: {
             type: Number,
