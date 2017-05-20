@@ -41,6 +41,8 @@ The following custom properties are available for styling:
 | --rating-ink-color | The color of the ripple on icon tap | --primary-text-color |
 | --rating-unselected-opacity | The opacity of stars 'non-active' | 0.4 |
 
+## Properties
+
 ### Public
 
 | Attribute Name | Functionality | Type | Default |
@@ -49,9 +51,3 @@ The following custom properties are available for styling:
 | rating | numbers of star selected (reflectToAttribute) | Number | 1 |
 | readonly | can the rate be modified | Boolean | false |
 | total | maximum number of stars selectable | Number | 5 |
-
-### Private
-
-| Attribute Name | Functionality | Type | Default |
-|----------------|-------------|-------------|-------------|
-| _stars | array hack for dom repeat from number | Array | [] |
