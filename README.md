@@ -25,8 +25,8 @@ bower install --save l2t-paper-rating
 -->
 ```html
   <l2t-paper-rating></l2t-paper-rating>
-  <l2t-paper-rating rating="1" readonly></l2t-paper-rating>
-  <l2t-paper-rating rating="7" total="10"></l2t-paper-rating>
+  <l2t-paper-rating rating="3" readonly></l2t-paper-rating>
+  <l2t-paper-rating rating="5" total="8"></l2t-paper-rating>
 ```
 
 ## Styling
