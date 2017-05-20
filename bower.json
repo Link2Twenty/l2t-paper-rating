@@ -4,7 +4,9 @@
 	"description": "A polymer element to display &#34;star&#34; ratings in a paper style",
 	"main": "l2t-paper-rating.html",
 	"dependencies": {
-		"polymer": "Polymer/polymer#^2.0.0"
+		"polymer": "Polymer/polymer#^2.0.0",
+		"paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
+		"iron-icons": "PolymerElements/iron-icons#^2.0.0"
 	},
 	"homepage": "https://github.com/Link2Twenty/l2t-paper-rating",
 	"authors": [
