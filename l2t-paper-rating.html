@@ -36,7 +36,8 @@ Custom property | Description | Default
       --paper-icon-button-ink-color: var(--rating-ink-color, --primary-text-color)
     }
     .stars {
-      display: inline-flex
+      display: inline-flex;
+      position: relative;
     }
     .stars:hover .icon-container:not([disabled]),
     .stars .icon-container.active,
@@ -59,6 +60,29 @@ Custom property | Description | Default
     .stars .icon-container:not([disabled]):hover~.icon-container {
       opacity: var(--rating-unselected-opacity, 0.4)
     }
+    .stars .stars_half__container {
+      position: absolute;
+      display: inline-flex;
+      left: 0;
+    }
+    .stars .stars_half__container .stars_half__spacer {
+      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      pointer-events: none;
+    }
+    .stars .stars_half__container .stars_half {
+      width: calc((var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2)/2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .stars .stars_half iron-icon {
+      color: var(--rating-icon-color, --primary-text-color);
+      opacity: 1;
+      width: var(--rating-icon-size,28px);
+      height: var(--rating-icon-size,28px);
+      padding: var(--rating-icon-padding,2px);
+    }
     </style>
     <div class="stars">
       <template is="dom-repeat" items="[[_convertArray(total)]]">
@@ -67,6 +91,16 @@ Custom property | Description | Default
           class$="[[_compareVals(rating,item)]]"
           value$="[[item]]">
         </paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[readonly]]">
+        <div class="stars_half__container">
+          <template is="dom-repeat" items="[[_convertArray(rating)]]">
+            <div class="stars_half__spacer"></div>
+          </template>
+          <div class="stars_half" hidden$="[[_isInt(rating)]]">
+            <iron-icon icon="[[icon]]"></iron-icon>
+          </div>
+        </div>
       </template>
     </div>
   </template>
@@ -114,10 +148,18 @@ Custom property | Description | Default
       * _compareVals: return active class for initial state
       */
       _compareVals(r,i) {
-        if (r >= i) {
-          return "active icon-container"
+        if (this.readonly && !this._isInt(this.rating)) {
+          if (Math.ceil(r) > i) {
+            return "active icon-container"
+          } else {
+            return "icon-container"
+          }
         } else {
-          return "icon-container"
+          if (r >= i) {
+            return "active icon-container"
+          } else {
+            return "icon-container"
+          }
         }
       }
       /**
@@ -125,10 +167,16 @@ Custom property | Description | Default
       */
       _convertArray(n) {
         let array = [];
-        for(let i = 0; i < n; i++){
+        for(let i = 0; i < Math.floor(n); i++){
           array.push(i+1);
         }
         return array;
+      }
+      /**
+      * _isInt: returns true if value is not divisible by 1
+      */
+      _isInt(n) {
+        return n%1?false:true;
       }
       /**
       * _tapHandler: sets rating on tap
