@@ -152,6 +152,15 @@ Custom property | Description | Default
             type: Number,
             value: 5,
             reflectToAttribute: true
+          },
+          /**
+          * _stars: array hack for dom repeat from number
+          * @type {Array}
+          */
+          _stars: {
+            type: Array,
+            value: [],
+            computed: "_convertArray(total)"
           }
         };
       }
