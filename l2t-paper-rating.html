@@ -85,18 +85,11 @@ Custom property | Description | Default
       padding: var(--rating-icon-padding,2px);
     }
     </style>
-<<<<<<< HEAD
     <div class="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
       <template is="dom-repeat" items="[[_stars]]">
         <paper-icon-button
           noink$="[[readonly]]"
           readonly$="[[readonly]]"
-=======
-    <div class="stars">
-      <template is="dom-repeat" items="[[_convertArray(total)]]">
-        <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
-          disabled$="[[readonly]]"
->>>>>>> 0f6fc9d280157136a8c6c5550c122ddc963b6a04
           class$="[[_compareVals(rating,item)]]"
           value$="[[item]]">
         </paper-icon-button>
@@ -197,11 +190,10 @@ Custom property | Description | Default
         return array;
       }
       /**
-<<<<<<< HEAD
       * _ratingChanged: prevents rating being set outside min and max
       */
       _ratingChanged() {
-        if (this.rating >= 0 || this.rating <= this.total)
+        if (this.rating >= 0 && this.rating <= this.total)
           return;
 
         this.rating = this.rating > this.total ? this.total : this.rating < 0 ? 0 : this.rating;
@@ -217,12 +209,6 @@ Custom property | Description | Default
       */
       _ratingIncrease() {
         this.rating++;
-=======
-      * _isInt: returns true if value is not divisible by 1
-      */
-      _isInt(n) {
-        return n%1?false:true;
->>>>>>> 0f6fc9d280157136a8c6c5550c122ddc963b6a04
       }
       /**
       * _tapHandler: sets rating on tap
