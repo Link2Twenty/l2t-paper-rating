@@ -208,19 +208,20 @@ Custom property | Description | Default
           return;
 
         this.rating = this.rating > this.total ? this.total : this.rating < 0 ? 0 : this.rating;
-        this._setFocus();
       }
       /**
       * _ratingDecrease: decrease the rating by 1
       */
       _ratingDecrease() {
         this.rating--;
+        this._setFocus();
       }
       /**
       * _ratingIncrease: increase the rating by 1
       */
       _ratingIncrease() {
         this.rating++;
+        this._setFocus();
       }
       /**
       * _tapHandler: sets rating on tap
