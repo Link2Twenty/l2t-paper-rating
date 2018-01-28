@@ -91,7 +91,7 @@ Custom property | Description | Default
         padding: var(--rating-icon-padding,2px);
       }
     </style>
-    <div class="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
+    <div class="stars" id="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
       <template is="dom-repeat" items="[[_convertArray(total)]]">
         <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
           disabled$="[[readonly]]"
@@ -208,6 +208,7 @@ Custom property | Description | Default
           return;
 
         this.rating = this.rating > this.total ? this.total : this.rating < 0 ? 0 : this.rating;
+        this._setFocus();
       }
       /**
       * _ratingDecrease: decrease the rating by 1
@@ -238,6 +239,14 @@ Custom property | Description | Default
               return false
             }
           }).getAttribute("value");
+        }
+      }
+      _setFocus() {
+        let allStars = this.$.stars.querySelector('paper-icon-button')
+
+        for (star of allStars) {
+          if (star.focused)
+            this.$.stars.focus();
         }
       }
     }
