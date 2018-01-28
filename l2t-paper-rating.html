@@ -32,64 +32,69 @@ Custom property | Description | Default
 <dom-module id="l2t-paper-rating">
   <template>
     <style>
-    :host {
-      display: block;
-      --paper-icon-button-ink-color: var(--rating-ink-color, --primary-text-color)
-    }
-    .stars {
-      display: inline-flex;
-      position: relative;
-    }
-    .stars:hover .icon-container:not([disabled]),
-    .stars .icon-container.active,
-    .stars .icon-container:not([disabled]):hover,
-    .stars .icon-container:not([disabled]):focus {
-      opacity: 1
-    }
-    .stars .icon-container {
-      color: var(--rating-icon-color, --primary-text-color);
-      opacity: var(--rating-unselected-opacity, .4);
-      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
-      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
-      padding: var(--rating-icon-padding,2px);
-      will-change: transform;
-      transition: transform .2s cubic-bezier(.51, .92, .24, 1)
-    }
-    .stars .icon-container:not([disabled]):hover     {
-      transform: scale(1.2)
-    }
-    .stars .icon-container:not([disabled]):hover~.icon-container {
-      opacity: var(--rating-unselected-opacity, 0.4)
-    }
-    .stars .stars_half__container {
-      position: absolute;
-      display: inline-flex;
-      left: 0;
-    }
-    .stars .stars_half__container .stars_half__spacer {
-      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
-      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
-      pointer-events: none;
-    }
-    .stars .stars_half__container .stars_half {
-      width: calc((var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2)/2);
-      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .stars .stars_half iron-icon {
-      color: var(--rating-icon-color, --primary-text-color);
-      opacity: 1;
-      width: var(--rating-icon-size,28px);
-      height: var(--rating-icon-size,28px);
-      padding: var(--rating-icon-padding,2px);
-    }
+      :host {
+        display: inline-block;
+        --paper-icon-button-ink-color: var(--rating-ink-color, --primary-text-color)
+      }
+      :host([hidden]) {
+        display: none;
+      }
+      .stars {
+        display: inline-flex;
+        position: relative;
+      }
+      .stars:hover .icon-container:not([disabled]),
+      .stars .icon-container.active,
+      .stars .icon-container:not([disabled]):hover,
+      .stars .icon-container:not([disabled]):focus {
+        opacity: 1
+      }
+      .stars .icon-container {
+        color: var(--rating-icon-color, --primary-text-color);
+        opacity: var(--rating-unselected-opacity, .4);
+        width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+        height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+        padding: var(--rating-icon-padding,2px);
+        will-change: transform;
+        transition: transform .2s cubic-bezier(.51, .92, .24, 1)
+      }
+      .stars .icon-container:not([disabled]):hover {
+        transform: scale(1.2)
+      }
+      .stars .icon-container[disabled] {
+        cursor: default
+      }
+      .stars .icon-container:not([disabled]):hover~.icon-container {
+        opacity: var(--rating-unselected-opacity, 0.4)
+      }
+      .stars .stars_half__container {
+        position: absolute;
+        display: inline-flex;
+        left: 0;
+      }
+      .stars .stars_half__container .stars_half__spacer {
+        width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+        height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+        pointer-events: none;
+      }
+      .stars .stars_half__container .stars_half {
+        width: calc((var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2)/2);
+        height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .stars .stars_half iron-icon {
+        color: var(--rating-icon-color, --primary-text-color);
+        opacity: 1;
+        width: var(--rating-icon-size,28px);
+        height: var(--rating-icon-size,28px);
+        padding: var(--rating-icon-padding,2px);
+      }
     </style>
     <div class="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
-      <template is="dom-repeat" items="[[_stars]]">
-        <paper-icon-button
-          noink$="[[readonly]]"
-          readonly$="[[readonly]]"
+      <template is="dom-repeat" items="[[[[_convertArray(rating)]]]]">
+        <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
+          disabled$="[[readonly]]"
           class$="[[_compareVals(rating,item)]]"
           value$="[[item]]">
         </paper-icon-button>
@@ -152,15 +157,6 @@ Custom property | Description | Default
             type: Number,
             value: 5,
             reflectToAttribute: true
-          },
-          /**
-          * _stars: array hack for dom repeat from number
-          * @type {Array}
-          */
-          _stars: {
-            type: Array,
-            value: [],
-            computed: "_convertArray(total)"
           }
         };
       }
@@ -197,6 +193,12 @@ Custom property | Description | Default
           array.push(i+1);
         }
         return array;
+      }
+      /**
+      * _isInt: returns true if value is not divisible by 1
+      */
+      _isInt(n) {
+        return n%1?false:true;
       }
       /**
       * _ratingChanged: prevents rating being set outside min and max
