@@ -213,6 +213,9 @@ Custom property | Description | Default
       * _ratingDecrease: decrease the rating by 1
       */
       _ratingDecrease() {
+        if(this.readonly)
+          return;
+          
         this.rating--;
         this._setFocus();
       }
@@ -220,6 +223,9 @@ Custom property | Description | Default
       * _ratingIncrease: increase the rating by 1
       */
       _ratingIncrease() {
+        if(this.readonly)
+          return;
+
         this.rating++;
         this._setFocus();
       }
