@@ -219,7 +219,7 @@ Custom property | Description | Default
       * _ratingDecrease: decrease the rating by 1
       */
       _ratingDecrease() {
-        if(this.readonly)
+        if(this.readonly || this._elementInactive())
           return;
 
         this.rating--;
@@ -239,7 +239,7 @@ Custom property | Description | Default
       * _tapHandler: sets rating on tap
       */
       _tapHandler(e) {
-        if(this.readonly || this._elementInactive())
+        if(this.readonly)
           return
 
         if(!e.path){
