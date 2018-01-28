@@ -92,7 +92,7 @@ Custom property | Description | Default
       }
     </style>
     <div class="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
-      <template is="dom-repeat" items="[[_convertArray(rating)]]">
+      <template is="dom-repeat" items="[[_convertArray(total)]]">
         <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
           disabled$="[[readonly]]"
           class$="[[_compareVals(rating,item)]]"
