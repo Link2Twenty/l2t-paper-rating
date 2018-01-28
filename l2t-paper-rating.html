@@ -195,6 +195,12 @@ Custom property | Description | Default
         return array;
       }
       /**
+      * _elementInactive: return true if element is inactive
+      */
+      _elementInactive() {
+        return this !== document.activeElement;
+      }
+      /**
       * _isInt: returns true if value is not divisible by 1
       */
       _isInt(n) {
@@ -215,7 +221,7 @@ Custom property | Description | Default
       _ratingDecrease() {
         if(this.readonly)
           return;
-          
+
         this.rating--;
         this._setFocus();
       }
@@ -223,7 +229,7 @@ Custom property | Description | Default
       * _ratingIncrease: increase the rating by 1
       */
       _ratingIncrease() {
-        if(this.readonly)
+        if(this.readonly || this._elementInactive())
           return;
 
         this.rating++;
@@ -233,7 +239,7 @@ Custom property | Description | Default
       * _tapHandler: sets rating on tap
       */
       _tapHandler(e) {
-        if(this.readonly)
+        if(this.readonly || this._elementInactive())
           return
 
         if(!e.path){
