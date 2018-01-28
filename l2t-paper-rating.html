@@ -37,12 +37,13 @@ Custom property | Description | Default
       --paper-icon-button-ink-color: var(--rating-ink-color, --primary-text-color)
     }
     .stars {
-      display: inline-flex
+      display: inline-flex;
+      position: relative;
     }
-    .stars:hover .icon-container:not([readonly]),
+    .stars:hover .icon-container:not([disabled]),
     .stars .icon-container.active,
-    .stars .icon-container:not([readonly]):hover,
-    .stars .icon-container:not([readonly]):focus {
+    .stars .icon-container:not([disabled]):hover,
+    .stars .icon-container:not([disabled]):focus {
       opacity: 1
     }
     .stars .icon-container {
@@ -54,26 +55,61 @@ Custom property | Description | Default
       will-change: transform;
       transition: transform .2s cubic-bezier(.51, .92, .24, 1)
     }
-    .stars .icon-container:not([readonly]):hover     {
+    .stars .icon-container:not([disabled]):hover     {
       transform: scale(1.2)
     }
-    .stars .icon-container[readonly] {
-      cursor: default
-    }
-    .stars .icon-container:not([readonly]):hover~.icon-container {
+    .stars .icon-container:not([disabled]):hover~.icon-container {
       opacity: var(--rating-unselected-opacity, 0.4)
     }
+    .stars .stars_half__container {
+      position: absolute;
+      display: inline-flex;
+      left: 0;
+    }
+    .stars .stars_half__container .stars_half__spacer {
+      width: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      pointer-events: none;
+    }
+    .stars .stars_half__container .stars_half {
+      width: calc((var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2)/2);
+      height: calc(var(--rating-icon-size,28px) + var(--rating-icon-padding,2px)*2);
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .stars .stars_half iron-icon {
+      color: var(--rating-icon-color, --primary-text-color);
+      opacity: 1;
+      width: var(--rating-icon-size,28px);
+      height: var(--rating-icon-size,28px);
+      padding: var(--rating-icon-padding,2px);
+    }
     </style>
+<<<<<<< HEAD
     <div class="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
       <template is="dom-repeat" items="[[_stars]]">
         <paper-icon-button
           noink$="[[readonly]]"
           readonly$="[[readonly]]"
+=======
+    <div class="stars">
+      <template is="dom-repeat" items="[[_convertArray(total)]]">
+        <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
+          disabled$="[[readonly]]"
+>>>>>>> 0f6fc9d280157136a8c6c5550c122ddc963b6a04
           class$="[[_compareVals(rating,item)]]"
-          value$="[[item]]"
-          on-tap="_tapHandler"
-          icon="[[icon]]">
+          value$="[[item]]">
         </paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[readonly]]">
+        <div class="stars_half__container">
+          <template is="dom-repeat" items="[[_convertArray(rating)]]">
+            <div class="stars_half__spacer"></div>
+          </template>
+          <div class="stars_half" hidden$="[[_isInt(rating)]]">
+            <iron-icon icon="[[icon]]"></iron-icon>
+          </div>
+        </div>
       </template>
     </div>
   </template>
@@ -101,7 +137,6 @@ Custom property | Description | Default
           },
           /**
           * rating: numbers of star selected (reflectToAttribute)
-          * @type {Number}
           */
           rating: {
             type: Number,
@@ -112,7 +147,6 @@ Custom property | Description | Default
           },
           /**
           * readonly: can the rate be modified
-          * @type {Boolean}
           */
           readonly: {
             type: Boolean,
@@ -120,21 +154,11 @@ Custom property | Description | Default
           },
           /**
           * total: maximum number of stars selectable
-          * @type {Number}
           */
           total: {
             type: Number,
             value: 5,
             reflectToAttribute: true
-          },
-          /**
-          * _stars: array hack for dom repeat from number
-          * @type {Array}
-          */
-          _stars: {
-            type: Array,
-            value: [],
-            computed: "_convertArray(total)"
           }
         };
       }
@@ -148,10 +172,18 @@ Custom property | Description | Default
       * _compareVals: return active class for initial state
       */
       _compareVals(r,i) {
-        if (r >= i) {
-          return "active icon-container"
+        if (this.readonly && !this._isInt(this.rating)) {
+          if (Math.ceil(r) > i) {
+            return "active icon-container"
+          } else {
+            return "icon-container"
+          }
         } else {
-          return "icon-container"
+          if (r >= i) {
+            return "active icon-container"
+          } else {
+            return "icon-container"
+          }
         }
       }
       /**
@@ -159,12 +191,13 @@ Custom property | Description | Default
       */
       _convertArray(n) {
         let array = [];
-        for(let i = 0; i < n; i++){
+        for(let i = 0; i < Math.floor(n); i++){
           array.push(i+1);
         }
         return array;
       }
       /**
+<<<<<<< HEAD
       * _ratingChanged: prevents rating being set outside min and max
       */
       _ratingChanged() {
@@ -184,6 +217,12 @@ Custom property | Description | Default
       */
       _ratingIncrease() {
         this.rating++;
+=======
+      * _isInt: returns true if value is not divisible by 1
+      */
+      _isInt(n) {
+        return n%1?false:true;
+>>>>>>> 0f6fc9d280157136a8c6c5550c122ddc963b6a04
       }
       /**
       * _tapHandler: sets rating on tap
@@ -205,7 +244,6 @@ Custom property | Description | Default
         }
       }
     }
-
     window.customElements.define(L2tPaperRating.is, L2tPaperRating);
   </script>
 </dom-module>
