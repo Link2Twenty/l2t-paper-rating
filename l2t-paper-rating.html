@@ -244,7 +244,7 @@ Custom property | Description | Default
       _setFocus() {
         let allStars = this.$.stars.querySelectorAll('paper-icon-button')
 
-        for (star of allStars) {
+        for (let star of allStars) {
           if (star.focused)
             this.$.stars.focus();
         }
