@@ -39,6 +39,10 @@ Custom property | Description | Default
       :host([hidden]) {
         display: none;
       }
+      :host([readonly]):focus,
+      :host([readonly]) .stars:focus {
+        outline: 0;
+      }
       .stars {
         display: inline-flex;
         position: relative;
