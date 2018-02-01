@@ -47,7 +47,7 @@ The following custom properties are available for styling:
 
 | Attribute Name | Functionality | Type | Default |
 |----------------|-------------|-------------|-------------|
-| icon | the icon to use (iron-icons) | String | icon |
+| icon | the icon to use (iron-icons) | String | star |
 | rating | numbers of star selected (reflectToAttribute) | Number | 1 |
 | readonly | can the rate be modified | Boolean | false |
 | total | maximum number of stars selectable | Number | 5 |
