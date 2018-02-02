@@ -281,6 +281,7 @@ Custom property | Description | Default
       * _setAriaAttr: update the aria values
       */
       _setAriaAttr() {
+        this.setAttribute('aria-label', `${this.rating} star out of ${this.total}`);
         this.setAttribute('aria-valuemax', this.total);
         this.setAttribute('aria-valuenow', this.rating);
       }
