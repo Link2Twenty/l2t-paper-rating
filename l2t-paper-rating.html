@@ -277,9 +277,9 @@ Custom property | Description | Default
         }
       }
       _setAriaAttr() {
-        this._ensureAttribute('aria-valuemin', 1);
-        this._ensureAttribute('aria-valuemax', this.total);
-        this._ensureAttribute('aria-valuenow', this.rating);
+        this.setAttribute('aria-valuemin', 1);
+        this.setAttribute('aria-valuemax', this.total);
+        this.setAttribute('aria-valuenow', this.rating);
       }
       _setFocus() {
         let allStars = this.$.stars.querySelectorAll('paper-icon-button')
@@ -291,9 +291,9 @@ Custom property | Description | Default
       }
       ready() {
         super.ready();
-        this._ensureAttribute('roll', 'slider');
-        this._ensureAttribute('tabindex', 0);
-        this._ensureAttribute('aria-label', 'rating');
+        this.setAttribute('roll', 'slider');
+        this.setAttribute('tabindex', 0);
+        this.setAttribute('aria-label', 'rating');
         this._setAriaAttr();
       }
     }
