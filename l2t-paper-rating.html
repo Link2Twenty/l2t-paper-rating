@@ -288,13 +288,13 @@ Custom property | Description | Default
           if (star.focused)
             this.focus();
         }
-       ready() {
-         super.ready();
-         this._ensureAttribute('roll', 'slider');
-         this._ensureAttribute('tabindex', 0);
-         this._ensureAttribute('aria-label', 'rating');
-         this._setAriaAttr();
-       }
+      }
+      ready() {
+        super.ready();
+        this._ensureAttribute('roll', 'slider');
+        this._ensureAttribute('tabindex', 0);
+        this._ensureAttribute('aria-label', 'rating');
+        this._setAriaAttr();
       }
     }
     window.customElements.define(L2tPaperRating.is, L2tPaperRating);
