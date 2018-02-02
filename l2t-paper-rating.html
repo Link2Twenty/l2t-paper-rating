@@ -218,7 +218,7 @@ Custom property | Description | Default
       * _ratingChanged: prevents rating being set outside min and max
       */
       _ratingChanged() {
-        if (this.rating >= 0 && this.rating <= this.total)
+        if (this.rating >= 1 && this.rating <= this.total)
           return;
 
         this.rating = this.rating >= this.total ? this.total : this.rating <= 1 ? 1 : this.rating;
