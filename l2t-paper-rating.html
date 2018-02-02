@@ -95,7 +95,7 @@ Custom property | Description | Default
         padding: var(--rating-icon-padding,2px);
       }
     </style>
-    <div class="stars" id="stars" role="slider" tabindex="0" aria-label="rating" aria-valuemin="1" aria-valuemax="[[total]]" aria-valuenow="[[rating]]">
+    <div class="stars" id="stars">
       <template is="dom-repeat" items="[[_convertArray(total)]]">
         <paper-icon-button icon="[[icon]]" on-tap="_tapHandler"
           disabled$="[[readonly]]"
@@ -218,6 +218,8 @@ Custom property | Description | Default
       * _ratingChanged: prevents rating being set outside min and max
       */
       _ratingChanged() {
+        this._setAriaAttr();
+
         if (this.rating >= 1 && this.rating <= this.total)
           return;
 
@@ -274,13 +276,25 @@ Custom property | Description | Default
           }).getAttribute("value");
         }
       }
+      _setAriaAttr() {
+        this._ensureAttribute('aria-valuemin', 1);
+        this._ensureAttribute('aria-valuemax', this.total);
+        this._ensureAttribute('aria-valuenow', this.rating);
+      }
       _setFocus() {
         let allStars = this.$.stars.querySelectorAll('paper-icon-button')
 
         for (let star of allStars) {
           if (star.focused)
-            this.$.stars.focus();
+            this.focus();
         }
+       ready() {
+         super.ready();
+         this._ensureAttribute('roll', 'slider');
+         this._ensureAttribute('tabindex', 0);
+         this._ensureAttribute('aria-label', 'rating');
+         this._setAriaAttr();
+       }
       }
     }
     window.customElements.define(L2tPaperRating.is, L2tPaperRating);
