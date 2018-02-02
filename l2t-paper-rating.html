@@ -167,7 +167,11 @@ Custom property | Description | Default
       get keyBindings() {
         return {
           'left': '_ratingDecrease',
-          'right': '_ratingIncrease'
+          'down': '_ratingDecrease',
+          'right': '_ratingIncrease',
+          'up': '_ratingIncrease',
+          'pageup': '_ratingMax',
+          'pagedown': '_ratingMin'
         };
       }
       /**
@@ -217,7 +221,7 @@ Custom property | Description | Default
         if (this.rating >= 0 && this.rating <= this.total)
           return;
 
-        this.rating = this.rating > this.total ? this.total : this.rating < 0 ? 0 : this.rating;
+        this.rating = this.rating > this.total ? this.total : this.rating < 1 ? 1 : this.rating;
       }
       /**
       * _ratingDecrease: decrease the rating by 1
@@ -238,6 +242,18 @@ Custom property | Description | Default
 
         this.rating++;
         this._setFocus();
+      }
+      /**
+      * _ratingMax: set the rating to max
+      */
+      _ratingMax() {
+        this.rating = this.total;
+      }
+      /**
+      * _ratingMin: set the rating to 1
+      */
+      _ratingMin() {
+        this.rating = 1;
       }
       /**
       * _tapHandler: sets rating on tap
