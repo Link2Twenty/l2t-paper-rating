@@ -289,7 +289,6 @@ Custom property | Description | Default
       * _setAriaAttr: update the aria values
       */
       _setAriaAttr() {
-        this.setAttribute('aria-label', `rating ${this.rating} out of ${this.total}`);
         this.setAttribute('aria-valuemax', this.total);
         this.setAttribute('aria-valuenow', this.rating);
       }
@@ -308,7 +307,6 @@ Custom property | Description | Default
         super.ready();
         this._ensureAttribute('role', 'slider');
         this._ensureAttribute('tabindex', 0);
-        this._ensureAttribute('aria-label', 'rating');
         this._ensureAttribute('aria-valuemin', 1);
         this._ensureAttribute('aria-valuemax', this.total);
         this._ensureAttribute('aria-valuenow', this.rating);
