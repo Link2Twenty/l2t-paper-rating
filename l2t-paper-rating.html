@@ -221,7 +221,7 @@ Custom property | Description | Default
         if (this.rating >= 0 && this.rating <= this.total)
           return;
 
-        this.rating = this.rating > this.total ? this.total : this.rating < 1 ? 1 : this.rating;
+        this.rating = this.rating => this.total ? this.total : this.rating <= 1 ? 1 : this.rating;
       }
       /**
       * _ratingDecrease: decrease the rating by 1
