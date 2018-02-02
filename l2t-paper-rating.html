@@ -234,6 +234,7 @@ Custom property | Description | Default
           return;
 
         this.rating--;
+        this.shadowRoot.querySelector(`[value=${this.rating}]`);
         this._setFocus();
       }
       /**
@@ -244,6 +245,7 @@ Custom property | Description | Default
           return;
 
         this.rating++;
+        this.shadowRoot.querySelector(`[value=${this.rating}]`);
         this._setFocus();
       }
       /**
@@ -251,12 +253,16 @@ Custom property | Description | Default
       */
       _ratingMax() {
         this.rating = this.total;
+        this.shadowRoot.querySelector(`[value=${this.rating}]`);
+        this._setFocus();
       }
       /**
       * _ratingMin: set the rating to 1
       */
       _ratingMin() {
         this.rating = 1;
+        this.shadowRoot.querySelector(`[value=${this.rating}]`);
+        this._setFocus();
       }
       /**
       * _tapHandler: sets rating on tap
@@ -283,7 +289,7 @@ Custom property | Description | Default
       _setAriaAttr() {
         let _s = this.rating > 1 ? 's' : '';
         
-        this.setAttribute('aria-label', `${this.rating} star${_s} out of ${this.total}`);
+        this.setAttribute('aria-label', `rating ${this.rating} star${_s} out of ${this.total}`);
         this.setAttribute('aria-valuemax', this.total);
         this.setAttribute('aria-valuenow', this.rating);
       }
@@ -292,7 +298,7 @@ Custom property | Description | Default
       */
       _setFocus() {
         let allStars = this.$.stars.querySelectorAll('paper-icon-button')
-
+        
         for (let star of allStars) {
           if (star.focused)
             this.focus();
