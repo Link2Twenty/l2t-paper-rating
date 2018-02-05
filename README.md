@@ -29,6 +29,12 @@ bower install --save l2t-paper-rating
   <l2t-paper-rating rating="3" total="4"></l2t-paper-rating>
 ```
 
+## A11y/ARIA
+
+For screen readers it's helpful to have a label though the traditional label element will not work with custom elements so we'll need to change the [aria-label](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html) or [aria-labelledby](https://www.w3.org/TR/WCAG20-TECHS/ARIA7.html) properties directly.
+
+There are examples of both methods on the [demo page](https://www.webcomponents.org/element/Link2Twenty/l2t-paper-rating/demo/demo/index.html).
+
 ## Styling
 
 The following custom properties are available for styling:
