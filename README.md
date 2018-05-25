@@ -1,3 +1,7 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Link2Twenty/l2t-paper-rating)
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-blue.svg)](https://vaadin.com/directory/component/Link2Twentyl2t-paper-rating)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/Link2Twentyl2t-paper-rating.svg)](https://vaadin.com/directory/component/Link2Twentyl2t-paper-rating)
+
 # \<l2t-paper-rating\>
 
 A polymer element to display &#34;star&#34; ratings in a paper style
